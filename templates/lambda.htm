@@ -1,0 +1,185 @@
+{% extends "_base.htm" %}
+
+{% block title %}
+   Lambda 
+{% endblock %}
+
+
+{% block pageblock %}
+
+<div id="up">
+    <h1><a> Pi-Estimation using AWS Lambda</a>:</a><br /><br /></h1>
+    <h2>Enter the following: <br /></h2>
+    <h4>(must enter all the fields)</h4>
+</div>
+	
+	<div id="down">
+	   <form id="stats" method="post" action="/piestimation">
+		  <h4>Number of resources: <input type="text" name="resources" /><br /></h4>
+		  <h4>Number of shots: <input type="text" name="shots" /><br/></h4>
+		  <h4>Number of digits: <input type = "text" name="digits" /><br/></h4>
+		  <h4>Reporting rate/Number of shots per machine: <input type = "text" name = "reportingrate" /><br/></h4>
+		  <h3><input type="submit" name="draw" value="Submit" />
+	   </form>
+
+        <div id="down">
+            <h4><a href="random.htm">Home</a></h4>
+        </div>
+        
+        <div id="down">
+            <h4><a href="history.htm">History</a></h4>
+        </div>
+        
+        <div id="down">
+            <h4><a href="lambda.htm">Reset</a>.</h4>
+        </div>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Records</h2>
+
+    <table>
+        <tr>
+            <th>Batch number</th>
+            <th>Number of incircles</th>
+            <th>Number of shots</th>
+            <th>Average pi</th>
+        </tr>
+         {% for row in records %}
+        <tr>
+            <th>{{ row[0] }}</th>
+            <th>{{ row[1] }}</th>
+            <th>{{ row[2] }}</th>
+            <th>{{ row[3] }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>History</h2>
+
+    <table>
+        <tr>
+            <th>Number of resources</th>
+            <th>Number of shots</th>
+            <th>Number of digits</th>
+            <th>Reporting Rate</th>
+            <th>Cost ($)</th>
+            <th>Closest pi</th>
+        </tr>
+    
+        {% for row in History %}
+        <tr>
+            <th>{{ row[0] }}</th>
+            <th>{{ row[1] }}</th>
+            <th>{{ row[2] }}</th>
+            <th>{{ row[3] }}</th>
+            <th>{{ row[4] }}</th>
+            <th>{{ row[5] }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <canvas id="myChart" width="400" height="400"></canvas>
+        <script>
+            var _label = '{{ labels }}';
+            var _piestimates = '{{ my_values }}';
+            var pi = '{{ pi }}';
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: JSON.parse(_label),
+                    datasets: [{
+                        label: 'Pi estimation',
+                        data: JSON.parse(_piestimates),
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                        radius: 0
+                    },
+
+                    {
+                        label: 'math.pi',
+                        data: JSON.parse(pi),
+                        backgroundColor: 'rgba(75, 159, 129, 0.2)',
+                        borderColor: 'rgba(75, 56, 0, 0.5)',
+                        borderWidth: 1,
+                        fill: false,
+                        radius: 0
+                    }
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: false
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 3.125,
+                                max: 3.180
+                            },
+                            gridLines: {
+                                display: false
+                            }
+                        }]
+
+                    }
+                },
+            });
+        </script>
+
+
+{% endblock %}

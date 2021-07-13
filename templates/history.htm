@@ -1,0 +1,64 @@
+{% extends "_base.htm" %}
+
+{% block title %}
+   History
+{% endblock %}
+
+
+
+
+{% block pageblock %}
+<head>
+		<style>
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+	
+			td,
+			th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+			}
+	
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+		</style>
+	</head>
+	
+	<body>
+	
+		<h2>History</h2>
+	
+		<table>
+			<tr>
+				<th>Number of shots</th>
+				<th>reporting_rate</th>
+				<th>Number of resources</th>
+				<th>Number of digits</th>
+				<th>Cost (in $)</th>
+				<th>Closest pi</th>
+			</tr>
+			{% for row in History %}
+			<tr>
+				<th>{{ row[0] }}</th>
+				<th>{{ row[1] }}</th>
+				<th>{{ row[2] }}</th>
+				<th>{{ row[3] }}</th>
+				<th>{{ row[4] }}</th>
+				<th>{{ row[5] }}</th>
+			</tr>
+			{% endfor %}
+		</table>
+	
+	</body>
+
+	
+		<div id="down">
+			<h2><a href="random.htm">Home</a>.</h2>
+		</div>
+
+{% endblock %}

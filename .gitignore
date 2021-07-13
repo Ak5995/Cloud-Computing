@@ -1,0 +1,6 @@
+history.db
+records.db
+__pycache__
+cwpiestimation.csv
+cred
+:memory:

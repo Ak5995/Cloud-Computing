@@ -1,0 +1,27 @@
+{% extends "_base.htm" %}
+
+{% block title %}
+  AWS EC2
+{% endblock %}
+
+
+{% block pageblock %}
+
+<div id="up">
+    <h1><a> Pi-Estimation using AWS EC2</a>:</a><br /><br /></h1>
+    <h2>Enter the following: <br /></h2>
+    <h3>Warning: It may take a while after pressing "submit", DO NOT refresh the page or go back</h3>
+</div>
+
+
+<div id="left">
+    <form id="left" method="post" action="/create_ec2instances">
+        <h4>Number of resources: <input type="text" name="resources" /><br /></h4>
+        <h4><input type="submit" name="draw" value="Submit" />
+    </form>
+
+    <div id="down">
+        <h4><a href="EC2.htm">Warmed up resources already? click to go to calculations page</a></h4>.</h2>
+    </div>
+
+{% endblock %}
